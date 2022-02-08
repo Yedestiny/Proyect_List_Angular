@@ -1,65 +1,138 @@
 <div class="todo">
+    <img src="assets/imagen.jpg" alt="">
     <div>
+
         <h1>Lista de Tareas</h1>
+        <h3> Tareas completadas: {{devolver_tareas_completadas()}} / {{tareas.length}}</h3> <br>
         <input type="text" id="item-input" #nueva_tarea>
         <select id="prioridad" #prioridad>Prioridad
             <option value="1">Alta</option>
             <option value="2">Media</option>
             <option value="3">Baja</option>
         </select>
-        <button type="button" (click)="anadir_tarea(nueva_tarea.value,prioridad.value)">Añadir</button>
+        <button type="button" class="boton" (click)="anadir_tarea(nueva_tarea.value,prioridad.value)">Añadir</button>
+        <input type="button" class="borrar" value="Borrar completadas" (click)="borrarCompletadas()">
     </div>
     <ul>
-        <li *ngFor="let tarea of tareas ; index as i" (click)="cambiar_completada(i)" [class.tarea_completada]="tarea.completada">
 
-            <h4>Nombre</h4> {{tarea.tarea}}
-            <h4>Estado</h4> {{ver_estado (tarea.completada)}}
-            <h4>Prioridad</h4>Prioridad {{tarea.prioridad == 3 ? "Alta":tarea.prioridad == 2 ? "Media":"Baja"}}
-            <h4>Crada hace</h4>{{fechaActual(tarea.fecha_creacion)}} minutos <br>
-            <input type="button" value="Alta" (click)="poner_prio_alta(i)">
-            <input type="button" value="Media" (click)="poner_prio_media(i)">
-            <input type="button" value="Baja" (click)="poner_prio_baja(i)">
-            <input type="button" value="Borrar" (click)="borrar(i)">
-  
+        <li *ngFor="let tarea of tareas ; index as i">
+            <div (click)="cambiar_completada(i)" [class.tarea_completada]="tarea.completada">
+                <h4>Nombre</h4> {{tarea.tarea}}
+                <h4>Estado</h4> {{ver_estado (tarea.completada)}}
+                <h4>Prioridad</h4>Prioridad {{tarea.prioridad == 3 ? "Alta":tarea.prioridad == 2 ? "Media":"Baja"}}
+                <h4>Creada hace</h4>{{fechaActual(tarea.fecha_creacion)}} minutos <br>
+            </div>
+            <div class="botones">
+                <h4>Cambiar prioridad</h4>
+                <input type="button" class="boton" value="Alta" (click)="poner_prio_alta(i)">
+                <input type="button" class="boton" value="Media" (click)="poner_prio_media(i)">
+                <input type="button" class="boton" value="Baja" (click)="poner_prio_baja(i)">
+                <br> <br> <br>
+                <input type="button" class="borrar" value="Borrar" (click)="borrar(i)">
+            </div>
         </li>
 
 
     </ul>
-    <div>
-        <input type="button" value="Borrar completadas" (click)="borrarCompletadas()">
-    </div>
+
 
     <style>
- 
-        .tarea_completada {
-            z-index: 1;
-            text-decoration: line-through rgb(240, 111, 111) 2px;
-            color: rgb(255, 255, 255);
-            background-color: rgb(240, 189, 173);
+        img {
+            position: fixed;
+            width: 100%;
+            height: 40vh;
+            object-fit: cover;
+            z-index: -1;
+            top: 0;
+            left: 0;
         }
-
+        
+        h4 {
+            color: rgb(100, 100, 236);
+        }
+        
+        .tarea_completada {
+            text-decoration: line-through;
+            color: rgb(238, 0, 0);
+        }
+        
+        .boton {
+            margin-left: 1vh;
+            background: #3D94F6;
+            border-radius: 20px;
+            color: #FFFFFF;
+            padding: 1vh;
+            border: solid #337FED 1px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .boton:hover {
+            border: solid #337FED 1px;
+            background: #1E62D0;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+        
+        .borrar {
+            margin-top: 1vh;
+            background: #f6533d;
+            border-radius: 20px;
+            color: #FFFFFF;
+            padding: 1vh;
+            border: solid #f6533d 1px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .borrar:hover {
+            border: solid #e02d15 1px;
+            background: #eb3119;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+        
         .todo {
+            margin: 0 auto;
+            width: 120vh;
+            margin-top: 8vh;
             background-color: blanchedalmond;
             display: flex;
             flex-direction: column;
             align-items: center;
+            border-radius: 2vh;
+            border: 1vh solid rgb(219, 219, 189);
         }
-
+        
         .todo div {
-            width: 35vh;
+            width: 40vh;
         }
-
+        
         ul {
             padding-left: 0px;
             background-color: beige;
             width: 40vh;
+            border: 0;
+            border-radius: 2vh;
         }
-
+        
         li {
             margin-bottom: 1vh;
-            padding-bottom: 1vh;
+            padding-left: 2vh;
             list-style: none;
             border: 1px solid black;
+            border-radius: 2vh;
+        }
+        
+        li h4 {
+            font-size: 2vh;
+            font-family: georgia, serif;
+            letter-spacing: 0.2pt;
+            line-height: 2.3;
         }
     </style>
 

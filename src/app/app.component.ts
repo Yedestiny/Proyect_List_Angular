@@ -27,6 +27,7 @@ export class AppComponent {
     this.actualizar_local_storage()
 
   }
+
   cambiar_completada(index: number) {
     this.tareas[index].completada = !this.tareas[index].completada
     this.actualizar_local_storage()
@@ -61,7 +62,7 @@ export class AppComponent {
   }
   devolver_tareas_completadas() {
     return this.tareas.filter(tareas => tareas.completada == true).length;
-}
+  }
   borrarCompletadas() {
     this.tareas = this.tareas.filter(tarea => tarea.completada == false)
     this.actualizar_local_storage()
